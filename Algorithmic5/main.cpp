@@ -1,6 +1,7 @@
 #include<iostream>
 #include<vector>
 #include<fstream>
+#include<algorithm>
 using namespace std;
 
 struct Node {
@@ -33,7 +34,7 @@ void inorder(struct Node* root) {
         inorder(root->left);
         cout << root->key << ": ";
         for (int i = 0; i < root->positions.size(); i++)
-            cout << root->positions[i] << " ";
+            cout << root->positions[i] + 1 << " ";
         cout << endl;
         inorder(root->right);
     }
@@ -46,6 +47,7 @@ int main() {
     int pos = 0;
     ifstream file("input.txt"); // Открытие файла
     while (file >> word) { // Пока есть слова в файле
+        transform(word.begin(), word.end(), word.begin(), ::tolower);
         root = insert(root, word, pos);
         pos++;
     }
